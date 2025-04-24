@@ -24,6 +24,18 @@ jobs:
     - name: Install Apache Ant
       run: |
         choco install ant  # Installs Apache Ant using Chocolatey package manager
+    - name: Clean and Build with Ant
+      run: ant clean && ant
 
+    - name: Build JAR with Ant
+      run: ant clean jar
+
+    - name: Upload JAR file
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifact
+        path: dist/*.jar  # Change path to your actual artifact location
+
+    
     - name: Run Ant build
       run: ant -noinput -buildfile nbproject/build-impl.xml
